@@ -1,0 +1,119 @@
+/********************************** GENERAL ****************************************/
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+*{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+ul{
+    list-style: none;
+}
+.container{
+    width: 80%;
+    min-height: 70vh;
+    background: radial-gradient(closest-side,#000,#000, #e0daa6);
+    color: #fff;
+}
+/* Animation background page d'accueil */
+.content{
+    position: relative;
+    overflow: hidden;
+}
+.content::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:  url(../static/img/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+    border-radius: 50%;
+    animation: beam-animation 5s infinite;
+}
+@keyframes beam-animation{
+    0%{
+         transform: scale(0);
+    }
+    50%{
+         transform: scale(1.5);
+    }
+    100%{
+         opacity: 0;
+         transform: scale(2);
+    }
+}
+/************************************ NAVBAR**********************************/
+.navbar{
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    height: 100px;
+    background: url(./img/python.jpg) no-repeat left;
+    background-size: contain;
+    box-shadow: 0px 3px 3px #f4661b;
+
+}
+.navbar-brand{
+    color:  #e0daa6;
+    padding-left: 100px;
+}
+.navbar-brand:hover{
+    color: #f00;
+}
+.navbar-nav{
+   text-align: center;
+}
+.navbar-toggler {
+    border: none;
+    color: #e0daa6;
+    background: linear-gradient(to right,  #000,  #e0daa6);
+}
+.nav-link{
+    font-weight: bold;
+    color: #e0daa6;
+    box-shadow: 0px 0px 2px #e0daa6;
+    background-color: #000;
+}
+
+.nav-link:hover{ 
+   background-color:  #f00;
+}
+/**/
+#contact-form{
+    font-size: 16px;
+    border-radius: 10px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    backdrop-filter: blur(25px);
+    background: transparent;
+}
+form .form-control{
+    height: 50px;
+    font-size: 16px;
+    border: none;
+  
+}
+.btn{
+    background: #f00;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+}
+.btn:hover{
+    background: linear-gradient(to right,  #000,  #e0daa6);
+}
+/**/
+.error-message{
+    font-weight: bold;
+    color: #f00;
+    font-size: 14px;
+}

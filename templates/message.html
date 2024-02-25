@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+        <div class="alert alert-{{ category }} mx-auto mt-4 text-center" style="width:80%;" role="alert">
+             {{ message }}
+         </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    {%include "head.html" %}
+    
+<body>
+    {% include "message.html" %}
+      <section class="container d-flex justify-content-center align-items-center mx-auto my-5">
+           <div class="col-md-6">
+                <form id="contact-form" action="{{ url_for('routeLogin')}}" method="POST" class="p-3">
+                    <!-- Protection faille csrf-->
+                    {{ form.hidden_tag() }}
+                    <!-- Champ de type email-->
+                        <div class="form-group pt-3">
+                            {{ form.email.label(class="form-label")  }}
+                            {{ form.email(class="form-control", autocomplete="email") }}
+
+                                {% for error in form.email.errors %}
+                                <span class="error-message p-1">
+                                    {{ error }}
+                                </span>
+                                {% endfor %}
+                        </div>
+
+                    <!-- Champ de type password-->
+                        <div class="form-group pt-3">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control")  }}
+
+                                {% for error in form.password.errors %}
+                                <span class="error-message p-1">
+                                    {{ error }}
+                                </span>
+                               {% endfor %}
+                        </div>
+
+                    <!-- Bouton d'envoi du formulaire-->
+                        <div class="text-center mt-3">
+                            {{ form.submit(class="btn py-2 px-3")  }}
+                        </div>
+                    <!---->
+                        <div class="text-center mt-2">
+                            {% if user_co == True %}
+                                <a href="/">Page Home</a>
+                            {% else %}
+                                <p>{{ message }}</p>
+                            {% endif %}
+                        </div>
+                </form>
+            </div>
+      </section>
+</body>
+    {%include "script.html" %}
+</html>
