@@ -28,7 +28,6 @@ class PythonSQL:
 
             self.ma_bdd.execute(req, values)
             self.db.commit()  
-
 class User:
     def __init__(self, email, password):
         self.email = email
