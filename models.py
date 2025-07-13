@@ -1,33 +1,35 @@
-from mysql import connector
+import psycopg2
+import os
 from werkzeug.security import generate_password_hash
 
 class PythonSQL:
-      def __init__(self):
-            self.db = connector.connect(
-                  user='root',
-                  password='',
-                  database='FlaskSqlDevoir',
-                  host='localhost'
-            ) 
-            self.ma_bdd = self.db.cursor()
+    def __init__(self):
+        # Connexion à la base PostgreSQL via l'URL dans la variable d'environnement DATABASE_URL
+        self.conn = psycopg2.connect(os.environ['DATABASE_URL'])
+        self.cursor = self.conn.cursor()
 
-      def __del__(self):
-            self.db.close()
+    def __del__(self):
+        self.cursor.close()
+        self.conn.close()
 
-      def selectData(self, req, params=None):
-            if params: 
-                self.ma_bdd.execute(req, params)
+    def selectData(self, req, params=None):
+        try:
+            if params:
+                self.cursor.execute(req, params)
             else:
-                 self.ma_bdd.execute(req)
-            return self.ma_bdd.fetchall()
-      
-      def insertData(self, table, email, password):
-            hashed_password = generate_password_hash(password)
-            req = "INSERT INTO users (email, password) VALUES (%s, %s)"
-            values = (email, hashed_password)
+                self.cursor.execute(req)
+            return self.cursor.fetchall()
+        except Exception as e:
+            self.conn.rollback()  # 🔴 ANNULATION de la transaction en cas d'erreur
+            print("Erreur SQL:", e)  # affichage de l'erreur
+            return None
 
-            self.ma_bdd.execute(req, values)
-            self.db.commit()  
+    def insertData(self, table, email, password):
+        hashed_password = generate_password_hash(password)
+        req = f"INSERT INTO {table} (email, password) VALUES (%s, %s)"
+        self.cursor.execute(req, (email, hashed_password))
+        self.conn.commit()
+
 class User:
     def __init__(self, email, password):
         self.email = email
